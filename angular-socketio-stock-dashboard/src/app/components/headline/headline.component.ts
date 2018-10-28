@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-headline',
@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./headline.component.less']
 })
 export class HeadlineComponent implements OnInit {
-  title = 'Live stock dashboard';
-  subtitle = 'powered by IEX Ⓒ';
-  subtitleHref = 'https://iextrading.com';
+  title = 'Live stock dashboard'
+  subtitle = 'powered by IEX Ⓒ'
+  subtitleHref = 'https://iextrading.com'
 
   constructor() { }
 

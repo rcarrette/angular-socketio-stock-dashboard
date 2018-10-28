@@ -1,21 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
+import { AppRoutingModule } from './app-routing.module'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatCardModule } from '@angular/material/card'
 
-import { AppComponent } from './components/app.component';
-import { HeadlineComponent } from './components/headline/headline.component';
+import { AppComponent } from './components/app.component'
+import { HeadlineComponent } from './components/headline/headline.component'
+import { StockListComponent } from './components/stock-list/stock-list.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeadlineComponent
+    HeadlineComponent,
+    StockListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
