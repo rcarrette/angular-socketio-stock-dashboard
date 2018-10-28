@@ -1,23 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
-@backgroundColor: #000000;
-@primaryForegroundColor: lighten(@backgroundColor, 65%);
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@backgroundColor: lighten(#000000, 10%);
+@primaryForegroundColor: darken(#ffffff, 10%);
 @secondaryForegroundColor: orange;
 
-*
+html, body
 {
-    font: 1rem 'Fira Sans', sans-serif;
+    height: 100%;
+}
+
+body
+{
     margin: 0;
-    background-color: lighten(@backgroundColor, 10%);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: @backgroundColor;
     color: @primaryForegroundColor;
 }
 
-a, a:active
+a
 {
     text-decoration: none;
+}
+
+a:focus, a:visited
+{
+    color: @primaryForegroundColor;
     outline: none;
 }
 
-a:hover, sup:hover
+a:hover
 {
     color: @secondaryForegroundColor;
+    outline: none;
 }
