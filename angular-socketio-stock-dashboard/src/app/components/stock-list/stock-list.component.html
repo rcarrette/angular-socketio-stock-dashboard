@@ -3,7 +3,8 @@
     <mat-card-title>{{ stock.name }}</mat-card-title>
     <mat-card-subtitle>last updated: {{ stock.lastUpdated }}</mat-card-subtitle>
     <mat-card-content>
-      <h1>${{ stock.pricesHistory[0] }}</h1>
+      <!-- <stock-chart></stock-chart> -->
+      <span>{{ stock.pricesHistory.join(',') }}</span>
     </mat-card-content>
   </mat-card>
 </div>

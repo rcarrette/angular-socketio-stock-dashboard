@@ -14,10 +14,9 @@ export class StockListComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit() {
-
     this.stockService.init()
 
-    this.stockService.subscribeToStocks('googl,msft,appl,amzn,fb,tsla')
+    this.stockService.subscribeToStocks('googl,msft,aapl,amzn,fb,tsla')
 
     this.stockService.onStockUpdate().subscribe((data: string) => {
       this.onStockUpdate(data)
@@ -26,6 +25,8 @@ export class StockListComponent implements OnInit {
 
   onStockUpdate(data: string): void {
     //TODO css animation card flash
+
+    console.log(`stock udpate received: ${data}`)
 
     let stock: any = JSON.parse(data)
 
