@@ -9,7 +9,8 @@ import { StockService } from '../../services/stock.service'
   styleUrls: ['./stock-list.component.less']
 })
 export class StockListComponent implements OnInit {
-  stocks: Stock[] = []
+  private stocks: Stock[] = []
+  private selectedStock: Stock
 
   constructor(private stockService: StockService) { }
 
@@ -24,25 +25,36 @@ export class StockListComponent implements OnInit {
   }
 
   onStockUpdate(data: string): void {
-    //TODO css animation card flash
+    //TODO css animation card flash in the template w/ binding
 
     console.log(`stock udpate received: ${data}`)
 
-    let stock: any = JSON.parse(data)
+    let stockPayload: any = JSON.parse(data)
 
-    if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stock.symbol).length == 0) {
-      this.stocks.push(<Stock>({
-        name: stock.symbol,
-        symbol: stock.symbol,
-        pricesHistory: [stock.lastSalePrice],
-        lastUpdated: new Date(stock.lastUpdated)  //TODO use moment
-      }))
+    let stock: Stock
+
+    if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stockPayload.symbol).length == 0) {
+      stock = <Stock>({
+        symbol: stockPayload.symbol,
+        pricesHistory: [stockPayload.lastSalePrice],
+        currentPrice: stockPayload.lastSalePrice,
+        lastUpdated: new Date(stockPayload.lastUpdated)
+      })
+
+      this.stocks.push(stock)
     }
     else {
-      let existingStock: Stock = this.stocks.filter(s => s.symbol == stock.symbol)[0]
+      stock = this.stocks.filter(s => s.symbol == stockPayload.symbol)[0]
 
-      existingStock.pricesHistory.push(stock.lastSalePrice)
-      existingStock.lastUpdated = new Date(stock.lastUpdated) //TODO use moment
+      stock.pricesHistory.push(stockPayload.lastSalePrice)
+      stock.lastUpdated = new Date(stockPayload.lastUpdated)
+
+      if (stockPayload.lastSalePrice != stock.currentPrice)
+        stock.currentPrice = stockPayload.lastSalePrice
     }
+  }
+
+  onStockSelected(stock: Stock): void {
+    this.selectedStock = stock
   }
 }

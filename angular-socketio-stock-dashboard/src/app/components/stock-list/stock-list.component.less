@@ -1,6 +1,23 @@
-#stock-charts-container
+#stocks-container
 {
     display: grid;
-    grid-template-columns: auto auto auto; //or 300px 300px 300px
+    grid-template-columns: 200px 200px 200px; //or auto auto auto
     grid-gap: 10px;
+}
+
+.stock-card
+{
+    max-width: 200px;
+}
+
+.stock-card:hover
+{
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.stock-current-price
+{
+    font-size: xx-large;
+    text-align: center;
 }

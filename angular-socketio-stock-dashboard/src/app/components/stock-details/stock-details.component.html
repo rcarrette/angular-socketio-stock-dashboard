@@ -1,0 +1,8 @@
+<div *ngIf="stock" class="stock-details">
+  <h2>{{ stock.symbol }}</h2>
+  <p>${{ stock.currentPrice }}</p>
+  <p>last update: {{ stock.lastUpdated | date:'medium' }}</p>
+  <p>price evolution: {{ stock.pricesHistory.join(',') }}</p>
+
+  <canvas id="canvas">{{ stock.chart }}</canvas>
+</div>

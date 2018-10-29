@@ -8,14 +8,14 @@ import { MatCardModule } from '@angular/material/card'
 import { AppComponent } from './components/app.component'
 import { HeadlineComponent } from './components/headline/headline.component'
 import { StockListComponent } from './components/stock-list/stock-list.component';
-import { StockComponent } from './components/stock/stock.component'
+import { StockDetailsComponent } from './components/stock-details/stock-details.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeadlineComponent,
     StockListComponent,
-    StockComponent
+    StockDetailsComponent
   ],
   imports: [
     BrowserModule,

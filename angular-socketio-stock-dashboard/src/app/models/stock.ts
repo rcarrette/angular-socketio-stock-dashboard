@@ -1,6 +1,7 @@
 export class Stock {
-    name: string
     symbol: string
     pricesHistory: number[]
+    currentPrice: number
     lastUpdated: Date
+    chart: any
 }

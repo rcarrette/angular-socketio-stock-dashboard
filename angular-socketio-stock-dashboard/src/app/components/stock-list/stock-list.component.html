@@ -1,10 +1,11 @@
-<div id="stock-charts-container">
-  <mat-card *ngFor="let stock of stocks">
-    <mat-card-title>{{ stock.name }}</mat-card-title>
-    <mat-card-subtitle>last updated: {{ stock.lastUpdated }}</mat-card-subtitle>
+<div id="stocks-container">
+  <mat-card *ngFor="let stock of stocks" class="stock-card" (click)="onStockSelected(stock)">
+    <mat-card-title>{{ stock.symbol }}</mat-card-title>
+    <mat-card-subtitle>last update: {{ stock.lastUpdated | date:'medium' }}</mat-card-subtitle>
     <mat-card-content>
-      <!-- <stock-chart></stock-chart> -->
-      <span>{{ stock.pricesHistory.join(',') }}</span>
+      <span class="stock-current-price">${{ stock.currentPrice }}</span>
     </mat-card-content>
   </mat-card>
 </div>
+
+<stock-details [stock]="selectedStock"></stock-details>
