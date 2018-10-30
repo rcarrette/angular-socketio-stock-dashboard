@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 
 import { Stock } from '../../models/stock'
+import { Price } from '../../models/price'
+
 import { StockService } from '../../services/stock.service'
 
 @Component({
@@ -27,18 +29,24 @@ export class StockListComponent implements OnInit {
   onStockUpdate(data: string): void {
     //TODO css animation card flash in the template w/ binding
 
-    console.log(`stock udpate received: ${data}`)
+    // console.log(`stock udpate received: ${data}`)
 
     let stockPayload: any = JSON.parse(data)
+
+    let lastUpdatedDate = new Date(stockPayload.lastUpdated)
 
     let stock: Stock
 
     if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stockPayload.symbol).length == 0) {
+      
       stock = <Stock>({
         symbol: stockPayload.symbol,
-        pricesHistory: [stockPayload.lastSalePrice],
+        pricesHistory: [<Price>({
+          value: stockPayload.lastSalePrice,
+          date: lastUpdatedDate
+        })],
         currentPrice: stockPayload.lastSalePrice,
-        lastUpdated: new Date(stockPayload.lastUpdated)
+        lastUpdated: lastUpdatedDate
       })
 
       this.stocks.push(stock)
@@ -46,8 +54,11 @@ export class StockListComponent implements OnInit {
     else {
       stock = this.stocks.filter(s => s.symbol == stockPayload.symbol)[0]
 
-      stock.pricesHistory.push(stockPayload.lastSalePrice)
-      stock.lastUpdated = new Date(stockPayload.lastUpdated)
+      stock.pricesHistory.push(<Price>({
+        value: stockPayload.lastSalePrice,
+        date: lastUpdatedDate
+      }))
+      stock.lastUpdated = lastUpdatedDate
 
       if (stockPayload.lastSalePrice != stock.currentPrice)
         stock.currentPrice = stockPayload.lastSalePrice
