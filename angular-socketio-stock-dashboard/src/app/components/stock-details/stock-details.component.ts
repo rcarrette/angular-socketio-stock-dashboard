@@ -1,7 +1,7 @@
-import { Component, Input, AfterViewChecked } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+import { Chart } from 'angular-highcharts';
 
-import { Chart } from 'chart.js'
-import * as moment from 'moment';
+import { StockService } from 'src/app/services/stock.service';
 
 import { Stock } from '../../models/stock'
 
@@ -10,42 +10,50 @@ import { Stock } from '../../models/stock'
   templateUrl: './stock-details.component.html',
   styleUrls: ['./stock-details.component.less']
 })
-export class StockDetailsComponent implements AfterViewChecked {
+export class StockDetailsComponent implements OnChanges {
   @Input() stock: Stock
+  chart: any;
 
-  constructor() { }
+  constructor(private stockService: StockService) { }
 
-  ngAfterViewChecked() {  //TODO create chart on another event
-      //TODO delete "chart" prop from Stock and use a directive instead to build the chart with the stock's data =>
-      //https://codepen.io/k3no/pen/rrRLvm + https://gist.github.com/anupkrbid/6447d97df6be6761d394f18895bc680d
+  ngOnChanges() {
+    this.initChart()
+  }
 
-    if (this.stock && !this.stock.chart) { //TODO if chart already exists => just update the datasets:data []
-      this.stock.chart = new Chart('canvas', {
-        type: 'line',
-        data: {
-          labels: this.stock.pricesHistory.map(p => moment(p.date).format('YYYY-MM-DD HH:mm:ss')),
-          datasets: [
-            {
-              data: this.stock.pricesHistory.map(p => p.value),
-              borderColor: '#3cba9f',
-              fill: false
-            }
-          ]
+  initChart(): void {
+    if (this.stock) {
+      let chart = new Chart({
+        chart: {
+          type: 'line'
+          // backgroundColor: '#000000'
         },
-        options: {
-          legend: {
-            display: false
-          },
-          scales: {
-            xAxes: [{
-              display: true
-            }],
-            yAxes: [{
-              display: true
-            }]
-          }
-        }
+        title: {
+          text: ''
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: this.stock.symbol,
+          data: this.stock.pricesHistory.map(p => p.value)
+        }]
+      })
+
+      this.chart = chart
+
+      //TODO use Rxjs multicasting instead (to allow all subscribers to get the same value at the same time)
+      this.stockService.onStockUpdate().subscribe((data: string) => {
+        this.addPoint(data)
       })
     }
+  }
+
+  addPoint(data: string): void {
+    const stockPayload: any = JSON.parse(data)
+
+    const isEqualToLastValue = (arr, value) => arr[arr.length - 1].y == value //TODO use lodash or ramda every time I manipulate an array
+
+    if (stockPayload.symbol == this.stock.symbol && !isEqualToLastValue(this.chart.ref$.source.value.series[0].data, stockPayload.lastSalePrice))
+      this.chart.addPoint(stockPayload.lastSalePrice)
   }
 }

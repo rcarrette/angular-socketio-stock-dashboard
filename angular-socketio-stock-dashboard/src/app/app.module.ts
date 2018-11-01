@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card'
 
+import { ChartModule } from 'angular-highcharts';
+
 import { AppComponent } from './components/app.component'
 import { HeadlineComponent } from './components/headline/headline.component'
 import { StockListComponent } from './components/stock-list/stock-list.component';
@@ -21,7 +23,8 @@ import { StockDetailsComponent } from './components/stock-details/stock-details.
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

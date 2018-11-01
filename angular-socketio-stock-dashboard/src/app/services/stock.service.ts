@@ -23,7 +23,8 @@ export class StockService {
     this.socket.emit('unsubscribe', stockSymbols)
   }
 
-  onStockUpdate(): Observable<string> { //TODO rx Subject
+  //TODO return Observable<Stock> instead of string
+  onStockUpdate(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on('message', (data: string) => observer.next(data))
     })

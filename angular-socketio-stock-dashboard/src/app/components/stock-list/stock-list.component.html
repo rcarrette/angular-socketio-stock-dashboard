@@ -1,5 +1,5 @@
 <div id="stocks-container">
-  <mat-card *ngFor="let stock of stocks" class="stock-card" (click)="onStockSelected(stock)">
+  <mat-card *ngFor="let stock of stocks" class="stock-card" [class.selected]="stock === selectedStock" (click)="onStockSelected(stock)">
     <mat-card-title>{{ stock.symbol }}</mat-card-title>
     <mat-card-subtitle>last update: {{ stock.lastUpdated | date:'medium' }}</mat-card-subtitle>
     <mat-card-content>

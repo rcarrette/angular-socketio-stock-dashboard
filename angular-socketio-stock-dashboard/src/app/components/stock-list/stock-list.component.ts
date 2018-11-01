@@ -29,8 +29,6 @@ export class StockListComponent implements OnInit {
   onStockUpdate(data: string): void {
     //TODO css animation card flash in the template w/ binding
 
-    // console.log(`stock udpate received: ${data}`)
-
     let stockPayload: any = JSON.parse(data)
 
     let lastUpdatedDate = new Date(stockPayload.lastUpdated)
@@ -38,7 +36,6 @@ export class StockListComponent implements OnInit {
     let stock: Stock
 
     if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stockPayload.symbol).length == 0) {
-      
       stock = <Stock>({
         symbol: stockPayload.symbol,
         pricesHistory: [<Price>({
@@ -54,14 +51,16 @@ export class StockListComponent implements OnInit {
     else {
       stock = this.stocks.filter(s => s.symbol == stockPayload.symbol)[0]
 
-      stock.pricesHistory.push(<Price>({
-        value: stockPayload.lastSalePrice,
-        date: lastUpdatedDate
-      }))
-      stock.lastUpdated = lastUpdatedDate
-
-      if (stockPayload.lastSalePrice != stock.currentPrice)
+      if (stockPayload.lastSalePrice != stock.currentPrice) {
         stock.currentPrice = stockPayload.lastSalePrice
+
+        stock.pricesHistory.push(<Price>({
+          value: stockPayload.lastSalePrice,
+          date: lastUpdatedDate
+        }))
+      }
+      
+      stock.lastUpdated = lastUpdatedDate
     }
   }
 

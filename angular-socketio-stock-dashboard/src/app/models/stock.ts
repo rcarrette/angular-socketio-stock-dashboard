@@ -5,5 +5,4 @@ export class Stock {
     pricesHistory: Price[]
     currentPrice: Price
     lastUpdated: Date
-    chart: any
 }

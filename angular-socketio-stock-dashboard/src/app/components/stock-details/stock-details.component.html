@@ -1,10 +1,4 @@
-<div *ngIf="stock" class="stock-details">
-  <h2>{{ stock.symbol }}</h2>
-  <p>${{ stock.currentPrice }}</p>
-  <p>last update: {{ stock.lastUpdated | date:'medium' }}</p>
-  <span *ngFor="let price of stock.pricesHistory">
-    {{ price.value }}, 
-  </span>
-
-  <canvas id="canvas">{{ stock.chart }}</canvas>
+<div *ngIf="stock">
+  <h2 id="stock-name">{{ stock.symbol }}</h2>
+  <div [chart]="chart"></div>
 </div>
