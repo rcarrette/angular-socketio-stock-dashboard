@@ -3,7 +3,7 @@
     <mat-card-title>{{ stock.symbol }}</mat-card-title>
     <mat-card-subtitle>last update: {{ stock.lastUpdated | date:'medium' }}</mat-card-subtitle>
     <mat-card-content>
-      <span class="stock-current-price">${{ stock.currentPrice }}</span>
+      <span class="stock-current-price">${{ stock.currentPrice.value }}</span>
     </mat-card-content>
   </mat-card>
 </div>

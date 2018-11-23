@@ -40,14 +40,16 @@ export class StockService {
     const stockPayload: any = JSON.parse(data)
 
     const lastUpdatedDate = new Date(stockPayload.lastUpdated)
-    
+
+    const currentStockPrice: Price = <Price>({
+      value: stockPayload.lastSalePrice,
+      date: lastUpdatedDate
+    })
+
     return <Stock>({
       symbol: stockPayload.symbol,
-      pricesHistory: [<Price>({
-        value: stockPayload.lastSalePrice,
-        date: lastUpdatedDate
-      })],
-      currentPrice: stockPayload.lastSalePrice,
+      pricesHistory: [currentStockPrice],
+      currentPrice: currentStockPrice,
       lastUpdated: lastUpdatedDate
     })
   }

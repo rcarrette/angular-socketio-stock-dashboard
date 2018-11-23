@@ -35,7 +35,7 @@ export class StockListComponent implements OnInit {
     else {
       let existingStock: Stock = this.stocks.filter(s => s.symbol == stock.symbol)[0]
 
-      if (existingStock.currentPrice != stock.currentPrice) {
+      if (existingStock.currentPrice.value != stock.currentPrice.value) {
         existingStock.currentPrice = stock.currentPrice
 
         existingStock.pricesHistory.push(<Price>({
