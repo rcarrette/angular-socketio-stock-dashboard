@@ -3,6 +3,9 @@ import { Observable } from 'rxjs'
 
 import * as io from 'socket.io-client'
 
+import { Stock } from '../models/stock'
+import { Price } from '../models/price'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,14 +26,29 @@ export class StockService {
     this.socket.emit('unsubscribe', stockSymbols)
   }
 
-  //TODO return Observable<Stock> instead of string
-  onStockUpdate(): Observable<string> {
-    return new Observable<string>(observer => {
-      this.socket.on('message', (data: string) => observer.next(data))
+  onStockUpdate(): Observable<Stock> {
+    return new Observable<Stock>(observer => {
+      this.socket.on('message', (data: string) => observer.next(this.stringToStock(data)))
     })
   }
 
   onDisconnect(): void {
     this.socket.on('disconnect', () => console.log('Disconnected.'))
+  }
+
+  stringToStock(data: string): Stock {
+    const stockPayload: any = JSON.parse(data)
+
+    const lastUpdatedDate = new Date(stockPayload.lastUpdated)
+    
+    return <Stock>({
+      symbol: stockPayload.symbol,
+      pricesHistory: [<Price>({
+        value: stockPayload.lastSalePrice,
+        date: lastUpdatedDate
+      })],
+      currentPrice: stockPayload.lastSalePrice,
+      lastUpdated: lastUpdatedDate
+    })
   }
 }

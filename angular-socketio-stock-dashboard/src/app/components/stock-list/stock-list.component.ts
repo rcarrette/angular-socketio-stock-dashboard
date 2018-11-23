@@ -21,46 +21,30 @@ export class StockListComponent implements OnInit {
 
     this.stockService.subscribeToStocks('googl,msft,aapl,amzn,fb,tsla')
 
-    this.stockService.onStockUpdate().subscribe((data: string) => {
+    this.stockService.onStockUpdate().subscribe((data: Stock) => {
       this.onStockUpdate(data)
     })
   }
 
-  onStockUpdate(data: string): void {
+  onStockUpdate(stock: Stock): void {
     //TODO css animation card flash in the template w/ binding
 
-    let stockPayload: any = JSON.parse(data)
-
-    let lastUpdatedDate = new Date(stockPayload.lastUpdated)
-
-    let stock: Stock
-
-    if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stockPayload.symbol).length == 0) {
-      stock = <Stock>({
-        symbol: stockPayload.symbol,
-        pricesHistory: [<Price>({
-          value: stockPayload.lastSalePrice,
-          date: lastUpdatedDate
-        })],
-        currentPrice: stockPayload.lastSalePrice,
-        lastUpdated: lastUpdatedDate
-      })
-
+    if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stock.symbol).length == 0) {
       this.stocks.push(stock)
     }
     else {
-      stock = this.stocks.filter(s => s.symbol == stockPayload.symbol)[0]
+      let existingStock: Stock = this.stocks.filter(s => s.symbol == stock.symbol)[0]
 
-      if (stockPayload.lastSalePrice != stock.currentPrice) {
-        stock.currentPrice = stockPayload.lastSalePrice
+      if (existingStock.currentPrice != stock.currentPrice) {
+        existingStock.currentPrice = stock.currentPrice
 
-        stock.pricesHistory.push(<Price>({
-          value: stockPayload.lastSalePrice,
-          date: lastUpdatedDate
+        existingStock.pricesHistory.push(<Price>({
+          value: stock.currentPrice.value,
+          date: stock.lastUpdated
         }))
       }
       
-      stock.lastUpdated = lastUpdatedDate
+      existingStock.lastUpdated = stock.lastUpdated
     }
   }
 
