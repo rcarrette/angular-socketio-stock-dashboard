@@ -33,11 +33,13 @@ export class StockService {
   }
 
   onDisconnect(): void {
-    this.socket.on('disconnect', () => console.log('Disconnected.'))
+    this.socket.on('disconnect', () => console.log('IEX socket disconnected.'))
   }
 
   stringToStock(data: string): Stock {
     const stockPayload: any = JSON.parse(data)
+
+    console.log(stockPayload)
 
     const lastUpdatedDate = new Date(stockPayload.lastUpdated)
 
