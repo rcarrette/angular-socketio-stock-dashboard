@@ -26,6 +26,7 @@ export class StockListComponent implements OnInit {
 
   onStockUpdate(stock: Stock): void {
     //TODO css animation card flash in the template w/ binding
+    //TODO + browser notification only when Nasdaq opens
 
     if (this.stocks.length == 0 || this.stocks.filter(s => s.symbol == stock.symbol).length == 0) {
       this.stocks.push(stock)
