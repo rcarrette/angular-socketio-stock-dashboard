@@ -39,8 +39,6 @@ export class StockService {
   stringToStock(data: string): Stock {
     const stockPayload: any = JSON.parse(data)
 
-    console.log(stockPayload)
-
     const lastUpdatedDate = new Date(stockPayload.lastUpdated)
 
     const currentStockPrice: Price = <Price>({
