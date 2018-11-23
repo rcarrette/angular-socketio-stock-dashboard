@@ -42,16 +42,14 @@ export class StockDetailsComponent implements OnChanges {
       this.chart = chart
 
       //TODO use Rxjs multicasting instead (to allow all subscribers to get the same value at the same time)
-      this.stockService.onStockUpdate().subscribe((stock: Stock) => {
-        this.addPoint(stock)
-      })
+      this.stockService.onStockUpdate().subscribe((stock: Stock) => this.addPoint(stock))
     }
   }
 
   addPoint(stock: Stock): void {
     const isEqualToLastValue = (arr, value) => arr[arr.length - 1].y == value //TODO use lodash or ramda every time I manipulate an array
 
-    if (stock.symbol == this.stock.symbol && !isEqualToLastValue(this.chart.ref$.source.value.series[0].data, stock.currentPrice))
-      this.chart.addPoint(stock.currentPrice)
+    if (stock.symbol == this.stock.symbol && !isEqualToLastValue(this.chart.ref$.source.value.series[0].data, stock.currentPrice.value))
+      this.chart.addPoint(stock.currentPrice.value)
   }
 }
