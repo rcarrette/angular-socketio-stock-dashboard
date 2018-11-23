@@ -21,8 +21,8 @@ export class StockListComponent implements OnInit {
 
     this.stockService.subscribeToStocks('googl,msft,aapl,amzn,fb,tsla')
 
-    this.stockService.onStockUpdate().subscribe((data: Stock) => {
-      this.onStockUpdate(data)
+    this.stockService.onStockUpdate().subscribe((stock: Stock) => {
+      this.onStockUpdate(stock)
     })
   }
 
