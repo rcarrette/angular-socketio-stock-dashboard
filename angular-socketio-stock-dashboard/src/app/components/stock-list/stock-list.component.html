@@ -9,3 +9,9 @@
 </div>
 
 <stock-details [stock]="selectedStock"></stock-details>
+
+<a mat-raised-button color="primary" routerLinkActive="active" [routerLink]="['/company', selectedStock.symbol]" *ngIf="selectedStock">
+  More details on {{ selectedStock.symbol }}
+</a>
+
+<router-outlet></router-outlet>

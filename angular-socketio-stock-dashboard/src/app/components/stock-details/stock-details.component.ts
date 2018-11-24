@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Chart } from 'angular-highcharts';
+import { Component, Input, OnChanges } from '@angular/core'
+import { Chart } from 'angular-highcharts'
 
-import { StockService } from 'src/app/services/stock.service';
+import { StockService } from 'src/app/services/stock.service'
 
 import { Stock } from '../../models/stock'
 
