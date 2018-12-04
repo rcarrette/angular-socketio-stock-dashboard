@@ -1,0 +1,48 @@
+#countdown-container
+{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    opacity: 1;
+    background-color: lighten(#000000, 10%);
+    overflow-y: hidden;
+}
+
+.center
+{
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.center > span
+{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: darken(#ffffff, 10%);
+    font-size: 2em;
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+#coutdown-text
+{
+    opacity: 0.5;
+}
+
+@keyframes pulse {
+    from
+    {
+        font-size: 2em;
+    }
+
+    to
+    {
+        font-size: 2.1em;
+    }
+}
