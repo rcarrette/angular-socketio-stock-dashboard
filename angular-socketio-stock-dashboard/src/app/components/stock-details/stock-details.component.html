@@ -1,4 +1,8 @@
 <div *ngIf="stock">
   <h2 id="stock-name">{{ stock.symbol }}</h2>
   <div [chart]="chart"></div>
+
+  <a mat-raised-button color="primary" routerLinkActive="active" [routerLink]="['/company', stock.symbol]">
+    More details on {{ stock.symbol }}
+  </a>
 </div>

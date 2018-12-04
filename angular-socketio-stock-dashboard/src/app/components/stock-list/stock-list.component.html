@@ -1,4 +1,4 @@
-<div id="stocks-container">
+<div id="stocks-container" *ngIf="router.url == '/'">
   <mat-card *ngFor="let stock of stocks" class="stock-card" [class.selected]="stock === selectedStock" (click)="onStockSelected(stock)">
     <mat-card-title>{{ stock.symbol }}</mat-card-title>
     <mat-card-subtitle>last update: {{ stock.lastUpdated | date:'medium' }}</mat-card-subtitle>
@@ -8,10 +8,6 @@
   </mat-card>
 </div>
 
-<stock-details [stock]="selectedStock"></stock-details>
-
-<a mat-raised-button color="primary" routerLinkActive="active" [routerLink]="['/company', selectedStock.symbol]" *ngIf="selectedStock">
-  More details on {{ selectedStock.symbol }}
-</a>
+<stock-details [stock]="selectedStock" *ngIf="router.url == '/'"></stock-details>
 
 <router-outlet></router-outlet>

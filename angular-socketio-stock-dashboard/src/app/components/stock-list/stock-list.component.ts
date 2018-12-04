@@ -4,6 +4,7 @@ import { Stock } from '../../models/stock'
 import { Price } from '../../models/price'
 
 import { StockService } from '../../services/stock.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'stock-list',
@@ -14,7 +15,7 @@ export class StockListComponent implements OnInit {
   private stocks: Stock[] = []
   private selectedStock: Stock
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private router: Router) { }
 
   ngOnInit() {
     this.stockService.init()
