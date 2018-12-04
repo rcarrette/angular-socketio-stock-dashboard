@@ -4,7 +4,9 @@ import { Stock } from '../../models/stock'
 import { Price } from '../../models/price'
 
 import { StockService } from '../../services/stock.service'
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
+
+import { Globals } from 'src/app/globals'
 
 @Component({
   selector: 'stock-list',
@@ -15,12 +17,12 @@ export class StockListComponent implements OnInit {
   private stocks: Stock[] = []
   private selectedStock: Stock
 
-  constructor(private stockService: StockService, private router: Router) { }
+  constructor(private stockService: StockService, private router: Router, private globals: Globals) { }
 
   ngOnInit() {
     this.stockService.init()
 
-    this.stockService.subscribeToStocks('googl,msft,aapl,amzn,fb,tsla')
+    this.stockService.subscribeToStocks(this.globals.stockSymbols.join(','))
 
     this.stockService.onStockUpdate().subscribe((stock: Stock) => this.onStockUpdate(stock))
   }

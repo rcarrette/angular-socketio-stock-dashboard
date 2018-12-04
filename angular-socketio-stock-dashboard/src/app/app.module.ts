@@ -15,6 +15,8 @@ import { StockDetailsComponent } from './components/stock-details/stock-details.
 import { CompanyDetailsComponent } from './components/company-details/company-details.component';
 import { CountdownComponent } from './components/countdown/countdown.component'
 
+import { Globals } from './globals'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,7 @@ import { CountdownComponent } from './components/countdown/countdown.component'
     MatButtonModule,
     ChartModule
   ],
-  providers: [],
+  providers: [Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
