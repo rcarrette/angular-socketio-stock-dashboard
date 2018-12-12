@@ -10,7 +10,7 @@ import { Price } from '../models/price'
   providedIn: 'root'
 })
 export class StockService {
-  private socket;
+  private socket
 
   constructor() { }
 
